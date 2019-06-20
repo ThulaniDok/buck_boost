@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+var path = require("path");
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -26,8 +29,8 @@ con.connect(function(err) {
 
 // App home page
 app.get('/', function (req, res) {
-    res.send('Hello, welcome to Buck Boost FC!')
-})
+    res.sendFile(__dirname + '/README.md') 
+});
 
 // View team squad
 app.get('/team', function (req, res) {
