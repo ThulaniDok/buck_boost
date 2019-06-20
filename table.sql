@@ -1,0 +1,7 @@
+CREATE TABLE TeamSquad (
+ id INT PRIMARY KEY  AUTO_INCREMENT, 
+ name VARCHAR(50) NOT NULL, 
+ surname VARCHAR(50) NOT NULL, 
+ position VARCHAR(50), 
+ age TINYINT, 
+ dateCreated TIMESTAMP );
