@@ -3,8 +3,6 @@
 
 ## Usage
 
-All responses will have the form
-
 ### List all team members
 
 `GET /team`
