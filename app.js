@@ -29,7 +29,7 @@ con.connect(function(err) {
 
 // App home page
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/README.md') 
+    res.sendFile(__dirname + '/index.html') 
 });
 
 // View team squad
