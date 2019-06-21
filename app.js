@@ -62,6 +62,31 @@ app.delete('/team/:player', function (req, res) {
     });
 });
 
+//Update existing player
+app.put('/team', function (req, res) {
+    let plyr_name = req.body.name;
+    let plyr_surname = req.body.surname;
+    let plyr_pos = req.body.position;
+    let plyr_age = req.body.age;
+    
+    if (!plyr_name) {
+        console.log(plyr_pos)
+        return res.status(400).send({error: plyr, message: "please provide player and player name"});
+    }
+    con.query('UPDATE `TeamSquad` SET `surname`=?,`position`=?,`age`=? where `name`=?', [plyr_surname, plyr_pos, plyr_age, plyr_name ], function (err, results, fields){
+        if(err) throw err;
+        return res.send({err: false, data: results, message: "Player has been updated."})
+    });
+});
+
+/*//rest api to update record into mysql database
+app.put('/team', function (req, res) {
+    con.query('UPDATE `TeamSquad` SET `age`=?,`surname`=?,`position`=? where `name`=?', [req.body.age, req.body.surname, req.body.position, req.body.name], function (error, results, fields) {
+       if (error) throw error;
+       res.end(JSON.stringify(results));
+     });
+ });*/
+
 // Add new player to team squad
 app.post('/team', function (req, res) {
     let plyr = req.body.plyr;
@@ -76,6 +101,7 @@ app.post('/team', function (req, res) {
         console.log(err)
     })
 });
+
 
 //port to listen to
 app.listen(3000);
