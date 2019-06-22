@@ -62,7 +62,7 @@ footer {
       request.onload = function() {
         var ourData = request.responseText;
         //alert(ourData);
-        renderHTML(ourData);
+        renderHTML(JSON.parse(ourData));
       };
       request.setRequestHeader("Content-type", "application/json");
       request.send();
@@ -72,7 +72,7 @@ footer {
         var htmlString = "";
 
         for (i = 0; i < data.length; i++) {
-          htmlString += "<p>" + data[i] + "</p>";
+          htmlString += "<p>" + data[i].name + "</p>";
         }
         playerContainer.insertAdjacentHTML('beforeend', htmlString);
     }
