@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Buck Boost FC</title>
-<link rel="stylesheet" type="text/css" href="./app.css">
+
 <style>
 body {
   background-color: lightgrey;
@@ -17,19 +17,65 @@ h1 {
   text-align: center;
 }
 
-p {
-  font-family: verdana;
-  font-size: 20px;
+section {
+  padding: 10px;
+}
+
+footer {
+  padding: 10px;
 }
 </style>
 </head>
 
 <body>
     <h1>Buck Boost FC</h1>
-    <button type="button">+ Add Player</button>
-    <input type="text" placeholder="Search.." name="search">
-    <button type="submit"><i class="fa fa-search"></i></button>
+    <section><button type="button">+ Add Player</button></section>
+    <input type="text" placeholder="Search.." id="search" name="search">
+    <button type="submit" id="btn"><i class="fa fa-search">SRCH</i></button>
+    <div id="player-info"></div>
     <footer>&copy; Dok App 2019</footer>
 </body>
+
+<script>
+    var playerContainer  = document.getElementById("player-info");
+    var btn  = document.getElementById("btn");
+    var plyr_name = document.getElementById("search").value;
+
+
+/*function getPlayer() {
+      plyr_name = document.getElementById("search").value;
+      var request = new XMLHttpRequest();
+    
+      request.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) {
+             
+         };
+      };
+    request.open('GET', 'http://localhost:3000/team/'+plyr_name, true) 
+    request.setRequestHeader("Content-type", "application/json");
+    request.send();
+    };*/
+
+    btn.addEventListener("click", function() {
+      var request = new XMLHttpRequest();
+      request.open('GET', 'http://localhost:3000/team/'+plyr_name, true);
+      request.onload = function() {
+        var ourData = request.responseText;
+        //alert(ourData);
+        renderHTML(ourData);
+      };
+      request.setRequestHeader("Content-type", "application/json");
+      request.send();
+    });
+
+    function renderHTML(data) {
+        var htmlString = "";
+
+        for (i = 0; i < data.length; i++) {
+          htmlString += "<p>" + data[i] + "</p>";
+        }
+        playerContainer.insertAdjacentHTML('beforeend', htmlString);
+    }
+</script> 
 
 </html>
