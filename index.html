@@ -57,12 +57,13 @@ footer {
     };*/
 
     btn.addEventListener("click", function() {
+      var plyr_name = document.getElementById("search").value;
       var request = new XMLHttpRequest();
       request.open('GET', 'http://localhost:3000/team/'+plyr_name, true);
       request.onload = function() {
-        var ourData = request.responseText;
+        var ourData = JSON.parse(request.responseText);
         //alert(ourData);
-        renderHTML(JSON.parse(ourData));
+        renderHTML(ourData);
       };
       request.setRequestHeader("Content-type", "application/json");
       request.send();
