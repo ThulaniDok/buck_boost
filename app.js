@@ -1,5 +1,5 @@
-const express = require('express');
-const app = express();
+var express = require('express');
+var app = express();
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var fs = require('fs');
@@ -10,6 +10,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+app.use(express.static('public'))
 
 // database connection details
 var con = mysql.createConnection({
