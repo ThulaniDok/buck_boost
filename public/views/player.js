@@ -2,7 +2,6 @@
     var playerContainer  = document.getElementById("player-info");
     var btn  = document.getElementById("btn");
     var sbmt  = document.getElementById("sbmt");
-    var srch_name = document.getElementById("search").value;
     var plyr_name = document.getElementById("name").value;
     var plyr_surname = document.getElementById("surname").value;
     var plyr_position = document.getElementById("position").value;
@@ -10,8 +9,9 @@
 
     // get player info
     btn.addEventListener("click", function() {
+      var srch_name = document.getElementById("search").value;
       var request = new XMLHttpRequest();
-      request.open('GET', 'http://localhost:3000/team/'+plyr_name, true);
+      request.open('GET', 'http://localhost:3000/team/'+srch_name, true);
       request.onload = function() {
         var ourData = JSON.parse(request.responseText);
         //alert(ourData);
