@@ -90,6 +90,7 @@ app.put('/team', function (req, res) {
 // Add new player to team squad
 app.post('/team', function (req, res) {
     let plyr = req.body.plyr;
+    console.log(req.body);
     if (!plyr) {
         return res.status(400).send({ error:true, message: 'Please provide player' });
     }

@@ -29,11 +29,16 @@ footer {
 
 <body>
     <h1>Buck Boost FC</h1>
-    <input type="text" placeholder="Name.." id="name" name="search">
-    <input type="text" placeholder="Surname.." id="surname" name="search">
-    <input type="text" placeholder="Position.." id="position" name="search">
-    <input type="text" placeholder="Age.." id="age" name="search">
-    <section><button type="button">+ Add Player</button></section>
+    
+    <form id="addForm" class="form">
+      <input type="text" placeholder="Name.." id="name" name="name">
+      <input type="text" placeholder="Surname.." id="surname" name="surname">
+      <input type="text" placeholder="Position.." id="position" name="position">
+      <input type="text" placeholder="Age.." id="age" name="age">
+      <button type="submit" id="sbmt">+ Add Player</button>
+    </form>
+    <br/>
+      
     <input type="text" placeholder="Search.." id="search" name="search">
     <button type="submit" id="btn"><i class="fa fa-search">SRCH</i></button>
     <div id="player-info"></div>
@@ -41,25 +46,17 @@ footer {
 </body>
 
 <script>
+    // declare variables
     var playerContainer  = document.getElementById("player-info");
     var btn  = document.getElementById("btn");
+    var sbmt  = document.getElementById("sbmt");
     var plyr_name = document.getElementById("search").value;
+    var plyr_name = document.getElementById("name").value;
+    var plyr_surname = document.getElementById("surname").value;
+    var plyr_position = document.getElementById("position").value;
+    var plyr_age = document.getElementById("age").value;
 
-
-/*function getPlayer() {
-      plyr_name = document.getElementById("search").value;
-      var request = new XMLHttpRequest();
-    
-      request.onreadystatechange = function() {
-         if (this.readyState == 4 && this.status == 200) {
-             
-         };
-      };
-    request.open('GET', 'http://localhost:3000/team/'+plyr_name, true) 
-    request.setRequestHeader("Content-type", "application/json");
-    request.send();
-    };*/
-
+    // get player info
     btn.addEventListener("click", function() {
       var plyr_name = document.getElementById("search").value;
       var request = new XMLHttpRequest();
@@ -73,6 +70,39 @@ footer {
       request.send();
     });
 
+      var addForm = document.getElementById("addForm");
+
+    //add player info
+    addForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+    var plyr_name = document.getElementById("name").value;
+    var plyr_surname = document.getElementById("surname").value;
+    var plyr_position = document.getElementById("position").value;
+    var plyr_age = document.getElementById("age").value;
+
+    var player = {
+      name: plyr_name,
+      surname: plyr_surname,
+      position: plyr_position,
+      age: plyr_age
+    }
+    console.log(player)
+
+  var request = new XMLHttpRequest();
+
+  request.open('POST', 'http://localhost:3000/team/');
+  request.onload = function() {
+    console.log(request.responseText);
+  }
+
+request.setRequestHeader("Content-Type", "application/json");
+    var content  = JSON.stringify({plyr: player});
+  console.log(content)
+  request.send(content);
+    });
+
+
+    // display player on html
     function renderHTML(data) {
         var htmlString = "";
 
